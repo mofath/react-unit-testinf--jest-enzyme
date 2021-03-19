@@ -8,8 +8,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 test("renders App without error", () => {
   const wrapper = shallow(<App />);
-  const appComponent = wrapper.find("[data-test='component-app']")
-  expect(appComponent.length).toBe(1)
+  const appComponent = wrapper.find("[data-test='component-app']");
+  expect(appComponent.length).toBe(1);
 });
-
-

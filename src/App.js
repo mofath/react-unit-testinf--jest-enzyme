@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ClickCounter from './components/ClickCounter'
+import ClickCounter from './modules/click-counter/click-counter'
 
 class App extends Component {
   render() {

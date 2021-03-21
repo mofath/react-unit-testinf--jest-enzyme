@@ -1,6 +1,7 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import checkPropsTypes from "check-prop-types";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -17,8 +18,6 @@ export const setup = (Component, props = {}, state = null) => {
   return wrapper;
 };
 
-
-
 /**
  * Return shallowWrapper containing node(s) with the given data-test value
  * @param {ShallowWrapper} wrapper  - Enzyme shallow wrapper to search within.
@@ -27,4 +26,14 @@ export const setup = (Component, props = {}, state = null) => {
  */
 export const findByTestAttribute = (wrapper, val) => {
   return wrapper.find(`[data-test="${val}"]`);
+};
+
+export const checkProps = (component, conformingProps) => {
+  const propError = checkPropsTypes(
+    component.propTypes,
+    conformingProps,
+    "prop",
+    component.name
+  );
+  expect(propError).toBeUndefined();
 };

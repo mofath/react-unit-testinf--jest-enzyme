@@ -1,13 +1,9 @@
 import React from "react";
-import Enzyme, { shallow } from "enzyme";
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 import Congrats from "../../../modules/guess-word-game/congrats";
 import { setup, findByTestAttribute, checkProps } from "../../../testUtils";
 
 const defaultProps = { success: false };
-
-Enzyme.configure({ adapter: new Adapter() });
 
 test("renders without errors", () => {
   const setupProps = { ...defaultProps, ...{ success: false } };

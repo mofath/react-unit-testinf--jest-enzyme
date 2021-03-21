@@ -3,12 +3,15 @@ import Enzyme, { shallow } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 import Congrats from "../../../modules/guess-word-game/congrats";
-import { setup, findByTestAttribute } from "../../../testUtils";
+import { setup, findByTestAttribute, checkProps } from "../../../testUtils";
+
+const defaultProps = { success: false };
 
 Enzyme.configure({ adapter: new Adapter() });
 
 test("renders without errors", () => {
-  const wrapper = setup(Congrats);
+  const setupProps = { ...defaultProps, ...{ success: false } };
+  const wrapper = setup(Congrats, setupProps);
   const congratsComponent = findByTestAttribute(wrapper, "component-congrats");
   expect(congratsComponent.length).toBe(1);
 });
@@ -21,7 +24,11 @@ test("renders no text when `success` props is false", () => {
 
 test("renders non-empty congrats message when success prop", () => {
   const wrapper = setup(Congrats, { success: true });
-  const congratsComponent = findByTestAttribute(wrapper, "component-congrats");
-  const message = findByTestAttribute(wrapper, 'congrats-message')
-  expect(message.text().length).not.toBe(0)
+  const message = findByTestAttribute(wrapper, "congrats-message");
+  expect(message.text().length).not.toBe(0);
+});
+
+test("does not throw warning with expected props", () => {
+  const expectedProps = { success: false };
+  checkProps(Congrats, expectedProps);
 });

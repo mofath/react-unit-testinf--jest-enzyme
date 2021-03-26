@@ -1,7 +1,7 @@
 import React from "react";
 
-import Congrats from "../../../modules/guess-word-game/congrats";
-import { setup, findByTestAttribute, checkProps } from "../../../testUtils";
+import Congrats from "./congrats";
+import { setup, findByTestAttribute, checkProps } from "../../testUtils";
 
 const defaultProps = { success: false };
 

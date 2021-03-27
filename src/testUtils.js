@@ -13,7 +13,7 @@ Enzyme.configure({ adapter: new Adapter() });
  * @returns {Store} - redux store
  */
 export const storeFactory = (rootReucer, initialState) => {
-  return createStore(rootReucer, createStore);
+  return createStore(rootReucer, initialState);
 };
 
 /**
@@ -23,8 +23,8 @@ export const storeFactory = (rootReucer, initialState) => {
  * @param {any} state - Initial state for setup.
  * @returns {ShallowWrapper}
  */
-export const setup = (Component, props = {}, state = null) => {
-  const wrapper = shallow(<Component {...props} />);
+export const setup = (Component, props = {}, state = null, store = null) => {
+  const wrapper = shallow(<Component {...props} store={store} />);
   if (state) wrapper.setState(state);
   return wrapper;
 };

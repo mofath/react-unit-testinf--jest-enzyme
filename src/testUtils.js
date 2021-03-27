@@ -1,9 +1,20 @@
 import React from "react";
+import { createStore } from "redux";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import checkPropsTypes from "check-prop-types";
 
 Enzyme.configure({ adapter: new Adapter() });
+
+/**
+ * Create a testing store with reducer, middleware and initialstate
+ * @param {object}
+ * @param {object} initialState
+ * @returns {Store} - redux store
+ */
+export const storeFactory = (rootReucer, initialState) => {
+  return createStore(rootReucer, createStore);
+};
 
 /**
  * Factory function to create a shallow wrapper for the App component

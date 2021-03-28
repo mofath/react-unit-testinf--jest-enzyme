@@ -30,8 +30,8 @@ class Input extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { success: state.success };
+const mapStateToProps = ({ success }) => {
+  return { success };
 };
 
 export default connect(mapStateToProps, { guessWord })(Input);

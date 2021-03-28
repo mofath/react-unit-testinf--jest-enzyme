@@ -1,10 +1,22 @@
-import { combineReducers } from "redux";
-import { successReducer } from "./successReducer";
-import { guessedWordsReducer } from "./guessedWordsReducer";
-import { secretWordReducer } from "./secretWordReducer";
+import { actionTypes } from "../actions";
 
-export default combineReducers({
-  success: successReducer,
-  guessedWords: guessedWordsReducer,
-  secretWord: secretWordReducer,
-});
+const INITIAL_STATE = {
+  success: false,
+  guessedWords: [],
+  secretWord: "",
+};
+
+function reducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case actionTypes.GUESS_WORD:
+      return { ...state, guessedWords: action.payload };
+    case actionTypes.CORRECT_GUESS:
+      return { ...state, success: true };
+    case actionTypes.SET_SECRET_WORD:
+      return { ...state, secretWord: action.payload };
+    default:
+      return state;
+  }
+}
+
+export default reducer;

@@ -1,7 +1,7 @@
-import moxios, { requests } from "moxios";
+import moxios from "moxios";
 
 import { storeFactory } from "../../../testUtils";
-import { getSecretWord } from "./";
+import { getSecretWord } from ".";
 import reducer from "../reducers";
 
 describe("getSecretWord action creator", () => {
@@ -20,9 +20,12 @@ describe("getSecretWord action creator", () => {
       });
     });
 
-    return store.dispatch(getSecretWord()).then(() => {
-      const newState = store.getState();
-      expect(newState.secretWord).toBe(secretWord);
-    });
+    store
+      .dispatch(getSecretWord())
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.secretWord).toBe(secretWord);
+      })
+      .catch((error) => console.log(error.message));
   });
 });

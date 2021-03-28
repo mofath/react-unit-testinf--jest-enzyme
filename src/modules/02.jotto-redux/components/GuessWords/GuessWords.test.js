@@ -1,6 +1,6 @@
-import { setup, findByTestAttribute, checkProps } from "../../testUtils";
+import { setup, findByTestAttribute, checkProps } from "../../../../testUtils";
 
-import GuessWords from "./guess-words";
+import GuessWords from "./GuessWords";
 
 const defaultProps = {
   guessedWords: [{ guessedWord: "train", letterMatchCount: 3 }],

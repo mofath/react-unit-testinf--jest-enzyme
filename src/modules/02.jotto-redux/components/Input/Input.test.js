@@ -1,9 +1,8 @@
 import React from "react";
-
-import { setup, findByTestAttribute, storeFactory } from "../../testUtils";
-import rootReducer from "./reducers";
-import Input, { UnconnectedInput } from "./input";
 import { shallow } from "enzyme";
+import { setup, findByTestAttribute, storeFactory } from "../../../../testUtils";
+import rootReducer from "../../reducers";
+import Input, { UnconnectedInput } from "./input";
 
 const inputSetup = (initialState = {}) => {
   const store = storeFactory(rootReducer, initialState);

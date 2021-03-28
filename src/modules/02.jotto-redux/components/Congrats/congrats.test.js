@@ -1,11 +1,10 @@
 import React from "react";
-
-import Congrats from "./congrats";
-import { setup, findByTestAttribute, checkProps } from "../../testUtils";
+import { setup, findByTestAttribute, checkProps } from "../../../../testUtils";
+import Congrats from "./Congrats";
 
 const defaultProps = { success: false };
 
-test("renders without errors", () => {
+test("renders without throwing errors", () => {
   const setupProps = { ...defaultProps, ...{ success: false } };
   const wrapper = setup(Congrats, setupProps);
   const congratsComponent = findByTestAttribute(wrapper, "component-congrats");

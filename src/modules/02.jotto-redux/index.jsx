@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import GuessWords from "./guess-words";
-import Congrats from "./congrats";
-import Input from "./input";
+import { Congrats, GuessWords, Input } from "./components";
 import { Provider, connect } from "react-redux";
 import store from "./configStore";
 import { getSecretWord } from "./actions";

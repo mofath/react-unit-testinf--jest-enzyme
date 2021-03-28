@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GuessWordGameContainer from "./modules/guess-word-game";
+import GuessWordGameContainer from "./modules/02.jotto-redux";
 
 class App extends Component {
   render() {

@@ -1,18 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { guessWord } from "./actions";
 
 class Input extends Component {
   render() {
     return (
       <div data-test="component-input">
         {this.props.success ? null : (
-          <form>
+          <form className="form-inline">
             <input
               data-test="input-box"
+              ref={this.inputBox}
+              className="form-control"
+              id="word-guess"
               type="text"
               placeholder="enter guess"
             />
-            <button data-test="submit-button" type="submit">
+            <button
+              data-test="submit-button"
+              className="btn btn-primary"
+              type="submit"
+            >
               Submit
             </button>
           </form>
@@ -22,9 +30,8 @@ class Input extends Component {
   }
 }
 
-const mapStateToProps = ({ success }) => {
-  return { success };
+const mapStateToProps = (state) => {
+  return { success: state.success };
 };
 
-export default Input;
-// export default connect(mapStateToProps)(Input);
+export default connect(mapStateToProps, { guessWord })(Input);

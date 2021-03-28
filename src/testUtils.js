@@ -1,7 +1,9 @@
 import React from "react";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import thunkMiddleware from "redux-thunk";
+
 import checkPropsTypes from "check-prop-types";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -12,8 +14,9 @@ Enzyme.configure({ adapter: new Adapter() });
  * @param {object} initialState
  * @returns {Store} - redux store
  */
-export const storeFactory = (rootReucer, initialState) => {
-  return createStore(rootReucer, initialState);
+export const storeFactory = (reducer, initialState) => {
+  const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+  return createStoreWithMiddleware(reducer, initialState);
 };
 
 /**

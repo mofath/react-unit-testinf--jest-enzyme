@@ -2,7 +2,14 @@ import React from "react";
 
 import { setup, findByTestAttribute, storeFactory } from "../../testUtils";
 import rootReducer from "./reducers";
-import Input from "./input";
+import Input, { UnconnectedInput } from "./input";
+import { shallow } from "enzyme";
+
+const inputSetup = (initialState = {}) => {
+  const store = storeFactory(rootReducer, initialState);
+  const wrapper = setup(Input, {}, null, store).dive().dive();
+  return wrapper;
+};
 
 describe("render", () => {
   describe("word has not been guessed", () => {
@@ -10,8 +17,7 @@ describe("render", () => {
 
     beforeEach(() => {
       const initialState = { success: false };
-      const store = storeFactory(rootReducer, initialState);
-      wrapper = setup(Input, {}, null, store).dive().dive();
+      wrapper = inputSetup(initialState);
     });
 
     test("renders the component without error", () => {
@@ -35,8 +41,7 @@ describe("render", () => {
 
     beforeEach(() => {
       const initialState = { success: true };
-      const store = storeFactory(rootReducer, initialState);
-      wrapper = setup(Input, {}, null, store).dive().dive();
+      wrapper = inputSetup(initialState);
     });
 
     test("renders the component without error", () => {
@@ -58,18 +63,29 @@ describe("render", () => {
 
 describe("redux props", () => {
   test("has success piece of state as props", () => {
-    const success = true;
-    const store = storeFactory(rootReducer, { success });
-    const wrapper = setup(Input, {}, null, store).dive().dive();
+    const success = false;
+    const wrapper = inputSetup({ success });
     const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
   });
 
   test("`guessWord` creator is action prop", () => {
-    const success = true;
-    const store = storeFactory(rootReducer, { success });
-    const wrapper = setup(Input, {}, null, store).dive().dive();
+    const wrapper = inputSetup();
     const guessWordProp = wrapper.instance().props.guessWord;
     expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
+
+describe("`guessWord` action creator call", () => {
+  test("calls `guessWord` when button is clicked", () => {
+    const guessWordMock = jest.fn();
+    const props = { guessWord: guessWordMock };
+
+    const wrapper = shallow(<UnconnectedInput {...props} />);
+    const submitButton =findByTestAttribute(wrapper, "submit-button");
+    submitButton.simulate("click");
+
+    const guessWordMockCallCount = guessWordMock.mock.calls.length;
+    expect(guessWordMockCallCount).toBe(1)
   });
 });

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { guessWord } from "../../actions";
 
 const Input = (props) => {
   const [currentGuess, setCurrentGuess] = useState("");
@@ -18,7 +17,6 @@ const Input = (props) => {
             type="text"
             value={currentGuess}
             onChange={(e) => setCurrentGuess(e.target.value)}
-            ref={this.inputBox}
             placeholder="enter guess"
           />
           <button

@@ -5,14 +5,14 @@ const GuessWords = (props) => {
   return (
     <div data-test="component-guessed-words">
       {props.guessedWords.length === 0 ? (
-        <span data-test="guess-instructions">
+        <h6 data-test="guess-instructions">
           Try to guess the secret word!
-        </span>
+        </h6>
       ) : (
         <div data-test="guessed-words">
           <h3>Guessed Words</h3>
-          <table>
-            <thead>
+          <table className="table table-sm">
+            <thead className="thead-light">
               <tr>
                 <th>Guess</th>
                 <th>Matching Letters</th>

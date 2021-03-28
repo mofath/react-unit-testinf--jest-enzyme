@@ -14,7 +14,10 @@ export class UnconnectedGame extends Component {
   render() {
     return (
       <div className="container" data-test="component-guess-word-game">
-        <h1>Jotto</h1>
+        <h1 className="mt-5 mb-4">Jotto</h1>
+        <div className="mb-3">
+          The secret word is <b>{this.props.secretWord}</b>
+        </div>
         <Congrats success={this.props.success} />
         <Input />
         <GuessWords guessedWords={this.props.guessedWords} />

@@ -6,7 +6,11 @@ import { Provider, connect } from "react-redux";
 import store from "./configStore";
 import { getSecretWord } from "./actions";
 
-class Game extends Component {
+export class UnconnectedGame extends Component {
+  componentDidMount() {
+    this.props.getSecretWord();
+  }
+
   render() {
     return (
       <div className="container" data-test="component-guess-word-game">
@@ -24,13 +28,15 @@ const mapStateToProps = (state) => {
   return { success, guessedWords, secretWord };
 };
 
-export const GuessWordGame = connect(mapStateToProps, { getSecretWord })(Game);
+export const ConnectedGame = connect(mapStateToProps, { getSecretWord })(
+  UnconnectedGame
+);
 
 class GuessWordGameContainer extends Component {
   render() {
     return (
       <Provider store={store}>
-        <GuessWordGame />
+        <ConnectedGame />
       </Provider>
     );
   }

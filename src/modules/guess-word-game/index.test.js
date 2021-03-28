@@ -2,11 +2,12 @@ import React from "react";
 
 import { setup, storeFactory } from "../../testUtils";
 import rootReducer from "./reducers";
-import { GuessWordGame } from "./";
+import { ConnectedGame, UnconnectedGame } from "./";
+import { shallow } from "enzyme";
 
 const guessWordGameSetup = (initialState) => {
   const store = storeFactory(rootReducer, initialState);
-  const wrapper = setup(GuessWordGame, {}, null, store).dive().dive();
+  const wrapper = setup(ConnectedGame, {}, null, store).dive().dive();
   return wrapper;
 };
 
@@ -37,4 +38,20 @@ describe("redux props", () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
   });
+});
+
+test("`getSecretWord` runs on Game mount", () => {
+  const getSecretWordMock = jest.fn();
+
+  // set up the game component with getSecretWordMock as getSecretWord prop
+  const wrapper = shallow(
+    <UnconnectedGame getSecretWord={getSecretWordMock} />
+  );
+
+  // run lifecycle method
+  wrapper.instance().componentDidMount();
+
+  //check to see if mock ran
+  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+  expect(getSecretWordCallCount).toBe(2);
 });

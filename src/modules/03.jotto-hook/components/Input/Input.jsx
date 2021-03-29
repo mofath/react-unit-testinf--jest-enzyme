@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropsTypes from "prop-types";
 
 const Input = (props) => {
   const [currentGuess, setCurrentGuess] = useState("");
@@ -32,5 +33,9 @@ const Input = (props) => {
     </div>
   );
 };
+
+Input.prototype = {
+  secretWord: PropsTypes.string.isRequired
+}
 
 export default Input;

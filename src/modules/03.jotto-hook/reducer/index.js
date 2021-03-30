@@ -1,9 +1,13 @@
+export const INITIAL_STATE = { secretWord: null, language: "en" };
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case "secretWord":
+    case "setSecretWord":
       return { ...state, secretWord: action.payload };
+    case "setLanguage":
+      return { ...state, language: action.payload };
     default:
-        return state;
+      throw new Error(`Invalid action type: ${action.type}`);
   }
 };
 

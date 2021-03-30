@@ -1,14 +1,14 @@
 import React from "react";
 import hookAction from "./actions/hookAction";
-import { Congrats, GuessWords, Input } from "./components";
-import reducer from "./reducer";
+import { Congrats, GuessWords, Input, LanguagePicker } from "./components";
+import languageContext from "./contexts/languageContext";
+import reducer, { INITIAL_STATE } from "./reducer";
 
-const Game = (props) => {
-  const [state, dispatch] = React.useReducer(reducer, { secretWord: null });
+function App() {
+  const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
 
-  const setSecretWord = (secretWord) => {
-    dispatch({ type: "setSecretWord", payload: secretWord });
-  };
+  const setSecretWord = (secretWord) => dispatch({ type: "setSecretWord", payload: secretWord });
+  const setLanguage = (language) => dispatch({ type: "setLanguage", payload: language });
 
   React.useEffect(() => {
     hookAction.getSecretWord(setSecretWord);
@@ -18,24 +18,21 @@ const Game = (props) => {
     return (
       <div className="container" data-test="spinner">
         <div className="spinner-border" role="status">
-          <span className="sr-only">Loading..</span>
+          <span className="sr-only">Loading...</span>
         </div>
-        <p>Loading Secret Word</p>
+        <p>Loading secret word</p>
       </div>
     );
   }
 
   return (
     <div className="container" data-test="component-guess-word-game">
-      <h1 className="mt-5 mb-4">Jotto</h1>
-      <div className="mb-3">
-        The secret word is <b>{props.secretWord}</b>
-      </div>
-      {/* <Congrats success={props.success} /> */}
-      <Input secretWord={state.secretWord} />
-      {/* <GuessWords guessedWords={props.guessedWords} /> */}
+      <h1>Jotto</h1>
+      <languageContext.Provider value={state.language}>
+        hello
+      </languageContext.Provider>
     </div>
   );
-};
+}
 
-export default Game;
+export default App;
